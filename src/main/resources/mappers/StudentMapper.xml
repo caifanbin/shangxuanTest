@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.binge.dao.StudentMapper">
+  <resultMap id="BaseResultMap" type="com.binge.beans.Student">
+   
+    <id column="id" property="id"/>
+    <result column="name" property="name"/>
+    <result column="age" property="age"/>
+    <result column="gender" property="gender"/>
+   </resultMap>
+  
+  <select id="queryList" resultMap="BaseResultMap">
+    select * from student
+    <where>
+      <if test="querytext!=null">
+        name like concat("%",#{querytext},"%")
+      </if>
+    </where>
+    limit #{startIndex},#{pagesize}
+  </select>
+
+  <select id="getStudentByid" resultMap="BaseResultMap">
+    select * from student where id=#{id}
+  </select>
+
+  <select id="querycount" resultType="int">
+    select count(id) from student
+    <where>
+      <if test="querytext!=null">
+        name like concat("%",#{querytext},"%")
+      </if>
+    </where>
+  </select>
+
+  <delete id="dodelete" parameterType="int">
+    delete from student where id=#{id}
+  </delete>
+
+  <insert id="doSave" parameterType="com.binge.beans.Student">
+    insert into student (name,age,gender)
+    values (#{name}, #{age},#{gender})
+  </insert>
+
+  <update id="doUpdate" parameterType="com.binge.beans.Student">
+    update student
+    set name=#{name}, age=#{age},gender=#{gender}
+    where id=#{id}
+  </update>
+</mapper>
