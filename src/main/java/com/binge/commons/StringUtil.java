@@ -2,12 +2,12 @@ package com.binge.commons;
 
 public class StringUtil {
 
-    public static  Boolean isEmpty(String str){
+    public static Boolean isEmpty(String str) {
 
-        return str==null||"".equals(str);
+        return str == null || "".equals(str);
     }
 
-    public static Boolean iNotEmpty(String str){
+    public static Boolean iNotEmpty(String str) {
         return !isEmpty(str);
     }
 }

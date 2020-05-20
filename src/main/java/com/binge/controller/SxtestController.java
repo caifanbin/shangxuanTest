@@ -23,45 +23,45 @@ public class SxtestController {
     private StudentService studentService;
 
     @RequestMapping("/index")
-    public String index(){
+    public String index() {
         return "index";
     }
 
     @RequestMapping("/toindex")
-    public String toindex(){
+    public String toindex() {
         return "/index";
     }
 
     @RequestMapping("/toupdate")
-    public String toupdate(int id ,Map map){
+    public String toupdate(int id, Map map) {
         Student student = studentService.getStudentByid(id);
-        map.put("updateStudent",student);
+        map.put("updateStudent", student);
         return "/update";
     }
 
     @RequestMapping("/tosave")
-    public String tosave(){
+    public String tosave() {
         return "/save";
     }
 
 
     @ResponseBody
     @RequestMapping("/list")
-    public Object list(@RequestParam(value="pageno",required = false,defaultValue = "1") Integer pageno,
-                       @RequestParam(value = "pagesize",required = false,defaultValue = "10") Integer pagesize
-            ,String querytext){
+    public Object list(@RequestParam(value = "pageno", required = false, defaultValue = "1") Integer pageno,
+                       @RequestParam(value = "pagesize", required = false, defaultValue = "10") Integer pagesize
+            , String querytext) {
         AjaxResult result = new AjaxResult();
         Map paramMap = new HashMap();
-        paramMap.put("pageno",pageno);
-        paramMap.put("pagesize",pagesize);
-        if(StringUtil.iNotEmpty(querytext)){
-            paramMap.put("querytext",querytext);
+        paramMap.put("pageno", pageno);
+        paramMap.put("pagesize", pagesize);
+        if (StringUtil.iNotEmpty(querytext)) {
+            paramMap.put("querytext", querytext);
         }
         try {
             Page page = studentService.queryPage(paramMap);
             result.setPage(page);
             result.setSuccess(true);
-        }catch (Exception e){
+        } catch (Exception e) {
             result.setSuccess(false);
             e.printStackTrace();
             result.setMessage("查询失败");
@@ -71,14 +71,15 @@ public class SxtestController {
 
     @ResponseBody
     @RequestMapping("dodelete")
-    public Object dodelete(int id){
+    public Object dodelete(int id) {
         AjaxResult result = new AjaxResult();
-        try{
+        try {
             int i = studentService.delete(id);
-            if (i!=0){
+            if (i != 0) {
                 result.setSuccess(true);
+
             }
-        }catch (Exception e){
+        } catch (Exception e) {
             result.setSuccess(false);
             result.setMessage("删除失败");
         }
@@ -87,14 +88,14 @@ public class SxtestController {
 
     @ResponseBody
     @RequestMapping("dosave")
-    public Object save(Student student){
+    public Object save(Student student) {
         AjaxResult result = new AjaxResult();
-        try{
+        try {
             int i = studentService.save(student);
-            if (i!=0){
+            if (i != 0) {
                 result.setSuccess(true);
             }
-        }catch (Exception e){
+        } catch (Exception e) {
             result.setSuccess(false);
             result.setMessage("保存失败");
         }
@@ -103,14 +104,14 @@ public class SxtestController {
 
     @ResponseBody
     @RequestMapping("doupdate")
-    public Object update(Student student){
+    public Object update(Student student) {
         AjaxResult result = new AjaxResult();
-        try{
+        try {
             int i = studentService.doUpdate(student);
-            if (i!=0){
+            if (i != 0) {
                 result.setSuccess(true);
             }
-        }catch (Exception e){
+        } catch (Exception e) {
             result.setSuccess(false);
             result.setMessage("修改失败");
         }

@@ -11,15 +11,15 @@ import java.util.List;
 import java.util.Map;
 
 @Service
-public class StudentServiceImpl implements StudentService{
+public class StudentServiceImpl implements StudentService {
 
     @Autowired
     private StudentMapper studentMapper;
 
     public Page queryPage(Map paramMap) {
-        Page page = new Page((Integer)paramMap.get("pageno"),(Integer)paramMap.get("pagesize"));
+        Page page = new Page((Integer) paramMap.get("pageno"), (Integer) paramMap.get("pagesize"));
         Integer startIndex = page.getStartIndex();
-        paramMap.put("startIndex",startIndex);
+        paramMap.put("startIndex", startIndex);
         List<Student> datas = studentMapper.queryList(paramMap);
         Integer totalsize = studentMapper.querycount(paramMap);
         page.setDatas(datas);
